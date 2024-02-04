@@ -20,6 +20,7 @@ services:
         build:
             dockerfile: docker/images/php/Dockerfile
             context: .
+            target: development
         volumes:
             - ./:/app:cached
             - ~/.composer:/root/.composer:delegated
@@ -29,9 +30,24 @@ services:
 
     db:
         container_name: db
-        image: postgres
+        build:
+            dockerfile: docker/images/postgre/Dockerfile
+            context: .
+        volumes:
+            - ./:/app:cached
+            - dbData:/var/lib/postgresql/data
+        working_dir: /app
         environment:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: root
+            GROUP: app
+            MAIN_ROLE: appowner
+            MAIN_ROLE_PASS: appowner
+            DB_NAME: app
+            READONLY_ROLE: readonly
+            READONLY_ROLE_PASSWORD: readonly
         ports:
             - '5432:5432'
+
+volumes:
+    dbData:

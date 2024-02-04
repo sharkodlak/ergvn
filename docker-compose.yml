@@ -24,3 +24,14 @@ services:
             - ./:/app:cached
             - ~/.composer:/root/.composer:delegated
         working_dir: /app
+        links:
+            - db
+
+    db:
+        container_name: db
+        image: postgres
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+        ports:
+            - '5432:5432'

@@ -21,10 +21,6 @@ RUN sed -i '/^# cs_CZ.UTF-8 /s/^# //' /etc/locale.gen && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-WORKDIR /app
-
-USER www-data
-
 EXPOSE 9000
 
 CMD ["php-fpm"]
@@ -34,10 +30,16 @@ CMD ["php-fpm"]
 
 FROM base AS development
 
+COPY ./docker/images/php/init.sh /docker-entrypoint-init.d/init.sh
+
+CMD ["/docker-entrypoint-init.d/init.sh"]
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 FROM base AS production
 
-COPY . /app
+COPY --chown=www-data:www-data . /app
+
+WORKDIR /app
+
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts

@@ -6,7 +6,6 @@ namespace App\Api;
 
 use App\Controller\UserController;
 use Slim\App;
-use Slim\Middleware\ErrorMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
 class RouterFactory
@@ -16,6 +15,7 @@ class RouterFactory
 		$versionGroup = $slimApp->group('/api/v{apiVersion}', function (RouteCollectorProxy $version): void {
 			$version->group('/user', function (RouteCollectorProxy $user): void {
 				$user->get('/{userId}', UserController::class . ':getUser');
+				$user->post('', UserController::class . ':createUser');
 			});
 		});
 	}

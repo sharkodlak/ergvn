@@ -4,10 +4,9 @@ declare(strict_types = 1);
 
 namespace App;
 
-use App\Api\RouterFactory;
-use App\Api\SlimAppFactory;
+use App\App\RouterFactory;
+use App\App\SlimAppFactory;
 use DI\Container;
-use Slim\Middleware\ErrorMiddleware;
 
 class Bootstrap
 {

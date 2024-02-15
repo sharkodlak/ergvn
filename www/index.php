@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Api\SlimAppFactory;
+use App\App\SlimAppFactory;
 use App\Bootstrap;
 
 require __DIR__ . '/../vendor/autoload.php';

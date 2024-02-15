@@ -1,0 +1,151 @@
+openapi: 3.0.3
+
+info:
+  title: Owl
+  version: 1.0.0
+
+tags:
+  - name: User
+
+paths:
+  /api/v{apiVersion}/user:
+    parameters:
+      - $ref: '#/components/parameters/apiVersion'
+    post:
+      summary: Create new user.
+      operationId: createUser
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '201':
+          description: User successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '4XX':
+          $ref: '#/components/responses/Error'
+        '5XX':
+          $ref: '#/components/responses/Error'
+
+  /api/v{apiVersion}/user/{userId}:
+    parameters:
+      - $ref: '#/components/parameters/apiVersion'
+      - $ref: '#/components/parameters/userId'
+    get:
+      summary: Get user.
+      operationId: getUser
+      tags:
+        - User
+      responses:
+        '200':
+          description: User data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '4XX':
+          $ref: '#/components/responses/Error'
+        '5XX':
+          $ref: '#/components/responses/Error'
+
+components:
+  parameters:
+    apiVersion:
+      name: apiVersion
+      description: The API version.
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 2
+        default: 1
+    userId:
+      name: userId
+      description: The user ID.
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/userId'
+
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InvalidRequest:
+      description: Validation error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidRequest"
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A message describing the error.
+        errorCode:
+          type: integer
+          description: Associated error code.
+        messages:
+          type: array
+          items:
+            type: string
+            description: A detailed description of the error.
+      required:
+        - error
+    InvalidRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable description of the error
+        validation:
+          type: object
+          description: A detailed description of the error.
+      required:
+        - message
+        - validation
+    User:
+      type: object
+      properties:
+        userId:
+          $ref: '#/components/schemas/userId'
+        email:
+          type: string
+          format: email
+          description: The user's email.
+        username:
+          type: string
+          format: username
+          description: The user's username.
+    userId:
+      type: string
+      format: uuid
+      description: Unique identifier of the user.
+
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: 'JWT authorization HTTP header using the Bearer scheme. Example: "Bearer {token}"'
+      name: Authorization
+      in: header
+
+servers:
+    - url: /

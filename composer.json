@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.3",
         "ext-json": "*",
+        "league/openapi-psr7-validator": "^0.22.0",
         "nyholm/psr7": "^1.8",
         "nyholm/psr7-server": "^1.1",
         "php-di/php-di": "^7.0",
@@ -26,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "app/tests/"
+            "Tests\\": "tests/"
         }
     },
     "scripts": {

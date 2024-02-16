@@ -30,6 +30,10 @@ CMD ["php-fpm"]
 
 FROM base AS development
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+COPY ./docker/images/php/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 COPY ./docker/images/php/init.sh /docker-entrypoint-init.d/init.sh
 
 CMD ["/docker-entrypoint-init.d/init.sh"]

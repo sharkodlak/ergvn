@@ -26,6 +26,11 @@ start:
 stop:
 	docker-compose down
 
+test: qa
+
+qa:
+	docker-compose exec php composer cmd:qa
+
 up: start
 
-.PHONY: exec in restart start stop
+.PHONY: exec in restart start stop qa

@@ -18,16 +18,16 @@ class ValidatorFactory
 	}
 
 
-	public function createRequestValidator(): Validator
+	public function createRequestValidator(): RequestValidator
 	{
 		$validator = $this->validatorBuilder->getServerRequestValidator();
-		return new Validator($validator);
+		return new RequestValidator($validator);
 	}
 
 
-	public function createResponseValidator(): Validator
+	public function createResponseValidator(): ResponseValidator
 	{
 		$validator = $this->validatorBuilder->getResponseValidator();
-		return new Validator($validator);
+		return new ResponseValidator($validator);
 	}
 }

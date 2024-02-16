@@ -28,6 +28,9 @@ class SlimAppFactory
 		$requestValidator = $this->validatorFactory->createRequestValidator();
 		$app->add($requestValidator);
 
+		$responseValidator = $this->validatorFactory->createResponseValidator();
+		$app->add($responseValidator);
+
 		$app->addErrorMiddleware(true, true, true);
 		$this->routerFactory->registerRoutes($app);
 

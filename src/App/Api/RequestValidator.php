@@ -17,7 +17,6 @@ class RequestValidator implements MiddlewareInterface
 	) {
 	}
 
-
 	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
 		$this->validator->validate($request);

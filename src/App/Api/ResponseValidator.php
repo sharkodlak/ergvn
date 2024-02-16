@@ -22,18 +22,17 @@ class ResponseValidator implements MiddlewareInterface
 	) {
 	}
 
-
 	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 	{
 		$response = $handler->handle($request);
 		$matchingOperationsAddrs = $this->findMatchingOperations($request);
 
 		if ($matchingOperationsAddrs === []) {
-			throw NoOperation::fromPathAndMethod($request->getUri()->getPath(), strtolower($request->getMethod()));
+			throw NoOperation::fromPathAndMethod($request->getUri()->getPath(), \strtolower($request->getMethod()));
 		}
 
 		// Single match is the most desirable variant, because we reduce ambiguity down to zero
-		if (count($matchingOperationsAddrs) === 1) {
+		if (\count($matchingOperationsAddrs) === 1) {
 			$this->validator->validate($matchingOperationsAddrs[0], $response);
 			return $response;
 		}
@@ -52,7 +51,6 @@ class ResponseValidator implements MiddlewareInterface
 		// no operation matched at all...
 		throw MultipleOperationsMismatchForRequest::fromMatchedAddrs($matchingOperationsAddrs);
 	}
-
 
 	/**
 	 * Check the openapi spec and find matching operations(path+method)

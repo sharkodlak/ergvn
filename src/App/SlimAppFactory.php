@@ -18,7 +18,6 @@ class SlimAppFactory
 	) {
 	}
 
-
 	public function create(): App
 	{
 		AppFactory::setContainer($this->container);

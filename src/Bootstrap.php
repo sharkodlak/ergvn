@@ -15,13 +15,12 @@ class Bootstrap
 	{
 		$container = new Container();
 		$routerFactory = new RouterFactory();
-		$validatorFactory = new ValidatorFactory(
-			__DIR__ . '/../openapi.yaml'
-		);
+		$openApiFile = __DIR__ . '/../openapi.yaml';
+		$validatorFactory = new ValidatorFactory($openApiFile);
 
 		$container->set(
 			SlimAppFactory::class,
-			fn() => new SlimAppFactory(
+			static fn () => new SlimAppFactory(
 				$container,
 				$routerFactory,
 				$validatorFactory

@@ -17,13 +17,11 @@ class ValidatorFactory
 			->fromYamlFile($this->openApiYamlFile);
 	}
 
-
 	public function createRequestValidator(): RequestValidator
 	{
 		$validator = $this->validatorBuilder->getServerRequestValidator();
 		return new RequestValidator($validator);
 	}
-
 
 	public function createResponseValidator(): ResponseValidator
 	{

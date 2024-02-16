@@ -1,10 +1,10 @@
 TARGET := $(firstword $(MAKECMDGOALS))
 ARGS := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 
-ifeq ($(TARGET),exec)
+ifneq ($(filter exec in,$(TARGET)),)
 $(eval $(ARGS):;@:)
 #previous line can't start with tab
-	SERVICE := $(firstword $(ARGS))
+	SERVICE := $(if $(ARGS),$(firstword $(ARGS)),php)
 	ARGS := $(wordlist 2, $(words $(ARGS)), $(ARGS))
 endif
 
@@ -15,7 +15,7 @@ exec:
 	docker-compose exec $(SERVICE) bash
 
 in:
-	@$(MAKE) --silent exec php
+	@$(MAKE) --silent exec $(SERVICE) $(ARGS)
 
 restart:
 	docker-compose restart

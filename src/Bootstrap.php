@@ -22,7 +22,6 @@ class Bootstrap
 		$container->set(
 			SlimAppFactory::class,
 			fn() => new SlimAppFactory(
-				true,
 				$container,
 				$routerFactory,
 				$validatorFactory

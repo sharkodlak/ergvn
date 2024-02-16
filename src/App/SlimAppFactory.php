@@ -12,7 +12,6 @@ use Slim\Factory\AppFactory;
 class SlimAppFactory
 {
 	public function __construct(
-		private bool $debugMode,
 		private readonly Container $container,
 		private readonly RouterFactory $routerFactory,
 		private readonly ValidatorFactory $validatorFactory

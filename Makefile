@@ -14,6 +14,9 @@ down: stop
 exec:
 	docker-compose exec $(SERVICE) bash
 
+fix:
+	docker-compose exec php composer cmd:fix
+
 in:
 	@$(MAKE) --silent exec $(SERVICE) $(ARGS)
 

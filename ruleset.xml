@@ -3,8 +3,74 @@
 	name="App Coding Standard"
 	xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
 >
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<rule ref="PSR2.Files.EndFileNewline.NoneFound"/>
+	<rule ref="Generic">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+		<exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed"/>
+		<exclude name="Generic.Commenting.DocComment.ContentAfterOpen"/>
+		<exclude name="Generic.Commenting.DocComment.ContentBeforeClose"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+		<exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+		<exclude name="Generic.Files.EndFileNoNewline.Found"/>
+		<exclude name="Generic.Files.LineLength.TooLong"/>
+		<exclude name="Generic.Files.LowercasedFilename.NotFound"/>
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame"/>
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
+		<exclude name="Generic.Formatting.NoSpaceAfterCast.SpaceFound"/>
+		<exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
+		<exclude name="Generic.PHP.ClosingPHPTag.NotFound"/>
+		<exclude name="Generic.PHP.UpperCaseConstant.Found"/>
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed" />
+	</rule>
+	<rule ref="PEAR">
+		<exclude name="PEAR.Classes.ClassDeclaration.OpenBraceNewLine"/>
+		<exclude name="PEAR.Commenting.FileComment.Missing"/>
+		<exclude name="PEAR.Commenting.ClassComment.Missing"/>
+		<exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+		<exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
+		<exclude name="PEAR.Commenting.FunctionComment.MissingParamTag"/>
+		<exclude name="PEAR.Commenting.FunctionComment.MissingReturn"/>
+		<exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+		<exclude name="PEAR.Functions.FunctionDeclaration.BraceOnSameLine"/>
+		<exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+		<exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+	</rule>
+	<rule ref="PSR2">
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+	</rule>
+	<rule ref="PSR12">
+		<exclude name="PSR12.Files.DeclareStatement.SpaceFoundAfterDirective"/>
+		<exclude name="PSR12.Files.DeclareStatement.SpaceFoundBeforeDirectiveValue"/>
+	</rule>
+	<rule ref="Squiz">
+		<exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
+		<exclude name="Squiz.Classes.ClassDeclaration.OpenBraceNewLine"/>
+		<exclude name="Squiz.Commenting.ClassComment.Missing"/>
+		<exclude name="Squiz.Commenting.ClosingDeclarationComment.Missing"/>
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
+		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
+		<exclude name="Squiz.Files.FileExtension.ClassFound"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
+		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
+		<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>
+		<exclude name="Squiz.WhiteSpace.FunctionSpacing.After"/>
+		<exclude name="Squiz.WhiteSpace.FunctionSpacing.AfterLast"/>
+		<exclude name="Squiz.WhiteSpace.FunctionSpacing.Before"/>
+		<exclude name="Squiz.WhiteSpace.FunctionSpacing.BeforeFirst"/>
+		<exclude name="Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect"/>
+		<exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before"/>
+	</rule>
 	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
 		<properties>
 			<property name="rootNamespaces" type="array">
@@ -13,15 +79,9 @@
 				<element key="tests/unit" value="Tests\Unit"/>
 			</property>
 		</properties>
-		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder"/>
-		<exclude name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion.DisallowedConstructorPropertyPromotion"/>
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace"/>
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace"/>
+		<exclude name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion"/>
 		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal"/>
 		<exclude name="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature.RequiredSingleLineSignature"/>
-		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountAfterControlStructure"/>
-		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure"/>
-		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator.DisallowedNullSafeObjectOperator"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
@@ -35,6 +95,18 @@
 		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified"/>
 		<exclude name="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator.DisallowedNumericLiteralSeparator"/>
 		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator"/>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+		<properties>
+			<property name="linesCountAfterOpeningBrace" value="0"/>
+			<property name="linesCountBeforeClosingBrace" value="0"/>
+		</properties>
+	</rule>
+	<rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
+		<properties>
+			<property name="linesCountAfter" value="1"/>
+			<property name="linesCountBefore" value="1"/>
+		</properties>
 	</rule>
 	<rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
 		<properties>

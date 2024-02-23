@@ -9,10 +9,8 @@ use App\App\RouterFactory;
 use App\App\SlimAppFactory;
 use DI\Container;
 
-class Bootstrap
-{
-	public static function boot(): Container
-	{
+class Bootstrap {
+	public static function boot(): Container {
 		$container = new Container();
 		$routerFactory = new RouterFactory();
 		$openApiFile = __DIR__ . '/../openapi.yaml';

@@ -10,15 +10,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class RequestValidator implements MiddlewareInterface
-{
+class RequestValidator implements MiddlewareInterface {
 	public function __construct(
 		private readonly ServerRequestValidator $validator
 	) {
 	}
 
-	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
-	{
+	public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
 		$this->validator->validate($request);
 		return $handler->handle($request);
 	}

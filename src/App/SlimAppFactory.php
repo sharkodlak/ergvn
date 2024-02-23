@@ -9,8 +9,7 @@ use DI\Container;
 use Slim\App;
 use Slim\Factory\AppFactory;
 
-class SlimAppFactory
-{
+class SlimAppFactory {
 	public function __construct(
 		private readonly Container $container,
 		private readonly RouterFactory $routerFactory,
@@ -18,8 +17,7 @@ class SlimAppFactory
 	) {
 	}
 
-	public function create(): App
-	{
+	public function create(): App {
 		AppFactory::setContainer($this->container);
 		$app = AppFactory::create();
 

@@ -7,11 +7,9 @@ namespace App\Controller;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class UserController
-{
+class UserController {
 	/** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
-	public function createUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
-	{
+	public function createUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
 		$data = [
 			'email' => 'john@doe.com',
 			'id' => '00000000-0000-0000-0000-000000000000',
@@ -30,8 +28,7 @@ class UserController
 		ServerRequestInterface $request,
 		ResponseInterface $response,
 		array $parameters
-	): ResponseInterface
-	{
+	): ResponseInterface {
 		$userId = $parameters['userId'];
 		$data = [
 			'email' => 'john@doe.com',

@@ -40,14 +40,15 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\Integration\\": "tests/integration/",
+            "Tests\\Unit\\": "tests/unit/"
         }
     },
     "scripts": {
         "cmd:fix": "@cmd:phpcbf",
-        "cmd:lint": "@php vendor/bin/parallel-lint -e php src tests",
-        "cmd:phpcs": "@php vendor/bin/phpcs -s",
-        "cmd:phpcbf": "@php vendor/bin/phpcbf",
+        "cmd:lint": "@php vendor/bin/parallel-lint -e php -j 8 src tests",
+        "cmd:phpcs": "@php vendor/bin/phpcs -ps --colors --parallel=8",
+        "cmd:phpcbf": "@php vendor/bin/phpcbf -p",
         "cmd:phpstan": "@php vendor/bin/phpstan analyse",
         "cmd:phpstan-baseline": "@cmd:phpstan --generate-baseline",
         "cmd:phpstan-tests": "@cmd:phpstan tests --configuration app/tests/phpstan.neon",

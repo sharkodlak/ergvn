@@ -13,8 +13,4 @@ class User {
 	public function getId(): string {
 		return $this->id;
 	}
-
-	private function setId(string $id): void {
-		$this->id = $id;
-	}
 }

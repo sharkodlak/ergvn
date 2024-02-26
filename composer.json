@@ -24,6 +24,7 @@
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^11.0",
+        "shipmonk/composer-dependency-analyser": "^1.2",
         "slevomat/coding-standard": "^8.14",
         "squizlabs/php_codesniffer": "^3.8"
     },
@@ -52,6 +53,7 @@
         "cmd:phpstan": "@php vendor/bin/phpstan analyse",
         "cmd:phpstan-baseline": "@cmd:phpstan --generate-baseline",
         "cmd:phpstan-tests": "@cmd:phpstan tests --configuration app/tests/phpstan.neon",
+        "cmd:require": "@php vendor/bin/composer-dependency-analyser",
         "cmd:tests": [
             "@cmd:tests:unit",
             "@cmd:tests:integration"
@@ -62,6 +64,7 @@
             "@cmd:lint",
             "@cmd:phpcs",
             "@cmd:phpstan",
+            "@cmd:require",
             "@cmd:tests"
         ]
     }

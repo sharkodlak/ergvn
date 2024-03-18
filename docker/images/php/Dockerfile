@@ -7,6 +7,7 @@ RUN apt-get update && \
         7zip \
         less \
         locales \
+        libpq-dev \
         nano \
         zip \
         && \
@@ -20,6 +21,8 @@ RUN sed -i '/^# cs_CZ.UTF-8 /s/^# //' /etc/locale.gen && \
 	ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN docker-php-ext-install pdo_pgsql
 
 EXPOSE 9000
 

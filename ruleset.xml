@@ -68,6 +68,7 @@
 		<exclude name="Squiz.Commenting.InlineComment.DocBlock"/>
 		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
 		<exclude name="Squiz.Files.FileExtension.ClassFound"/>
+		<exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceSpacing"/>
 		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
@@ -106,6 +107,7 @@
 		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified"/>
 		<exclude name="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator.DisallowedNumericLiteralSeparator"/>
 		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator"/>
+		<exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion"/>
 	</rule>
 	<rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
 		<properties>

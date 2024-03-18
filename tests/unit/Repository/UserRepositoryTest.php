@@ -13,15 +13,15 @@ class UserRepositoryTest extends TestCase {
 	/** @var UserRepository&MockObject $userRepository */
 	private UserRepository $userRepository;
 
-	public function testFindUserById(): void {
+	public function testFindByUserId(): void {
 		$userId = '00000000-0000-0000-0000-000000000000';
 		$user = new User($userId);
 		$this->userRepository
 			->expects($this->once())
-			->method('findUserById')
+			->method('findByUserId')
 			->willReturn($user);
 		
-		$this->assertEquals($user, $this->userRepository->findUserById($userId));
+		$this->assertEquals($user, $this->userRepository->findByUserId($userId));
 	}
 
 	protected function setUp(): void {

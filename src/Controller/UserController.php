@@ -4,10 +4,16 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class UserController {
+	public function __construct(
+		private readonly UserRepository $userRepository
+	) {
+	}
+
 	/** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
 	public function createUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
 		$data = [
@@ -30,11 +36,7 @@ class UserController {
 		array $parameters
 	): ResponseInterface {
 		$userId = $parameters['userId'];
-		$data = [
-			'email' => 'john@doe.com',
-			'id' => $userId,
-			'name' => 'John Doe',
-		];
+		$data = $this->userRepository->findByUserId($userId);
 		$response->getBody()->write(\json_encode($data, \JSON_THROW_ON_ERROR));
 		$response = $response->withHeader('Content-Type', 'application/json');
 		return $response;

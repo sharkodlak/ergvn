@@ -13,7 +13,8 @@ class SlimAppFactory {
 	public function __construct(
 		private readonly Container $container,
 		private readonly RouterFactory $routerFactory,
-		private readonly ValidatorFactory $validatorFactory
+		private readonly ValidatorFactory $validatorFactory,
+		private readonly Config $config
 	) {
 	}
 
@@ -24,8 +25,10 @@ class SlimAppFactory {
 		$requestValidator = $this->validatorFactory->createRequestValidator();
 		$app->add($requestValidator);
 
-		$responseValidator = $this->validatorFactory->createResponseValidator();
-		$app->add($responseValidator);
+		if ($this->config['params']['openApi']['validate']['response'] ?? false) {
+			$responseValidator = $this->validatorFactory->createResponseValidator();
+			$app->add($responseValidator);
+		}
 
 		$app->addErrorMiddleware(true, true, true);
 		$this->routerFactory->registerRoutes($app);

@@ -19,8 +19,8 @@ class UserRepositoryImpl implements UserRepository {
 	) {
 	}
 
-	public function findUserById(string $id): ?User {
-		$stmt = $this->pdo->prepare('SELECT id FROM users WHERE id = :id');
+	public function findByUserId(string $id): ?User {
+		$stmt = $this->pdo->prepare('SELECT user_id FROM users WHERE user_id = :id');
 		$stmt->execute(['id' => $id]);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		\assert(\is_array($row) || $row === false, 'Unexpected fetch result');
@@ -29,6 +29,6 @@ class UserRepositoryImpl implements UserRepository {
 			return null;
 		}
 
-		return new User($row['id']);
+		return new User($row['user_id']);
 	}
 }

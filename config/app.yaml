@@ -1,0 +1,9 @@
+params:
+  db:
+    host: db
+    dbname: app
+    user: appowner
+    password: appowner
+  openApi:
+    validate:
+      response: false

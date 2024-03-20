@@ -65,13 +65,16 @@
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
 		<exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
 		<exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
+		<exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing"/>
 		<exclude name="Squiz.Commenting.InlineComment.DocBlock"/>
+		<exclude name="Squiz.Commenting.PostStatementComment.Found"/>
 		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
 		<exclude name="Squiz.Files.FileExtension.ClassFound"/>
 		<exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceSpacing"/>
 		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
+		<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
 		<exclude name="Squiz.PHP.DisallowBooleanStatement.Found"/>
 		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
 		<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>
@@ -93,6 +96,7 @@
 		<exclude name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion"/>
 		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal"/>
 		<exclude name="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature.RequiredSingleLineSignature"/>
+		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode"/>
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment.OneLinePropertyComment"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
@@ -124,6 +128,11 @@
 	<rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
 		<properties>
 			<property name="searchAnnotations" value="true"/>
+		</properties>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
+		<properties>
+			<property name="linesCountBetweenUseTypes" value="1"/>
 		</properties>
 	</rule>
 </ruleset>

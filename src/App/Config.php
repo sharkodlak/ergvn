@@ -6,35 +6,32 @@ namespace App\App;
 
 use ArrayAccess;
 use RuntimeException;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Dotenv\Dotenv;
 
-/**
- * @phpstan-type ConfigArray array{
- *   params: array<string, mixed>,
- * }
- */
 class Config implements ArrayAccess {
-	public readonly array $config;
-
 	public function __construct(
-		string $configFile = __DIR__ . '/../../config/app.yaml'
+		Dotenv $dotenv,
+		string $envFile = '.env'
 	) {
-		/** @var ConfigArray $config */
-		$this->config = Yaml::parseFile($configFile);
+		$dotenv->load($envFile);
 	}
 
 	public function offsetExists(mixed $offset): bool {
-		return isset($this->config[$offset]);
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		return isset($_ENV[$offset]);
 	}
 
-	public function offsetGet(mixed $offset): mixed {
-		return $this->config[$offset];
+	public function offsetGet(mixed $offset): string {
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
+		return $_ENV[$offset];
 	}
 
+	/** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
 	public function offsetSet(mixed $offset, mixed $value): void {
 		throw new RuntimeException('Config is read-only');
 	}
 
+	/** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
 	public function offsetUnset(mixed $offset): void {
 		throw new RuntimeException('Config is read-only');
 	}

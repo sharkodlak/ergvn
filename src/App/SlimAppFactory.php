@@ -25,7 +25,7 @@ class SlimAppFactory {
 		$requestValidator = $this->validatorFactory->createRequestValidator();
 		$app->add($requestValidator);
 
-		if ($this->config['params']['openApi']['validate']['response'] ?? false) {
+		if ($this->config['OPENAPI_VALIDATE_RESPONSES'] === 'true') {
 			$responseValidator = $this->validatorFactory->createResponseValidator();
 			$app->add($responseValidator);
 		}

@@ -15,6 +15,7 @@ use function DI\autowire;
 use function DI\create;
 use function DI\value;
 
+/** @phpstan-type ConfigArray array<string, string> */
 class Services {
 	public function __construct(
 		private readonly ContainerBuilder $containerBuilder,
@@ -27,17 +28,17 @@ class Services {
 			PDO::class => create(ExtendedPdo::class)
 				->constructor(
 					value(
-						sprintf('pgsql:host=%s;dbname=%s',
-							$this->config['params']['db']['host'],
-							$this->config['params']['db']['dbname']
+						\sprintf(
+							'pgsql:host=%s;dbname=%s',
+							$this->config['DB_HOST'],
+							$this->config['DB_NAME']
 						)
 					),
-					value($this->config['params']['db']['user']),
-					value($this->config['params']['db']['password'])
+					value($this->config['DB_USER']),
+					value($this->config['DB_PASS'])
 				),
 			UserRepository::class => autowire(UserRepositoryImpl::class),
 		]);
-		$container = $this->containerBuilder->build();
-		return $container;
+		return $this->containerBuilder->build();
 	}
 }

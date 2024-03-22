@@ -26,6 +26,11 @@
 		<exclude name="Generic.PHP.UpperCaseConstant.Found"/>
         <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed" />
 	</rule>
+	<rule ref="Generic.Formatting.SpaceAfterNot">
+		<properties>
+			<property name="spacing" value="0"/>
+		</properties>
+	</rule>
 	<rule ref="PEAR">
 		<exclude name="PEAR.Classes.ClassDeclaration.OpenBraceNewLine"/>
 		<exclude name="PEAR.Commenting.FileComment.Missing"/>
@@ -69,13 +74,17 @@
 		<exclude name="Squiz.Commenting.InlineComment.DocBlock"/>
 		<exclude name="Squiz.Commenting.PostStatementComment.Found"/>
 		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
+		<exclude name="Squiz.ControlStructures.InlineIfDeclaration.NoBrackets"/>
 		<exclude name="Squiz.Files.FileExtension.ClassFound"/>
 		<exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceSpacing"/>
 		<exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
 		<exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue"/>
+		<exclude name="Squiz.Operators.ComparisonOperatorUsage.NotAllowed"/>
 		<exclude name="Squiz.PHP.DisallowBooleanStatement.Found"/>
+		<exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedComparison"/>
+		<exclude name="Squiz.PHP.DisallowInlineIf.Found"/>
 		<exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
 		<exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose"/>
 		<exclude name="Squiz.WhiteSpace.FunctionSpacing.After"/>
@@ -98,11 +107,14 @@
 		<exclude name="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature.RequiredSingleLineSignature"/>
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode"/>
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment.OneLinePropertyComment"/>
+		<exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
+		<exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed"/>
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
 		<exclude name="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch.DisallowedNonCapturingCatch"/>
 		<exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction.DisallowedArrowFunction"/>
+		<exclude name="SlevomatCodingStandard.Functions.DisallowNamedArguments.DisallowedNamedArgument"/>
 		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
 		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration.MissingTrailingComma"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>

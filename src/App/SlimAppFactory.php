@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\App;
 
+use App\App\Api\ErrorHandler;
 use App\App\Api\ValidatorFactory;
 use DI\Container;
 use Slim\App;
@@ -30,7 +31,9 @@ class SlimAppFactory {
 			$app->add($responseValidator);
 		}
 
-		$app->addErrorMiddleware(true, true, true);
+		$errorMiddleware = $app->addErrorMiddleware(false, true, true);
+		$errorHandler = $this->container->get(ErrorHandler::class);
+		$errorMiddleware->setDefaultErrorHandler($errorHandler);
 		$this->routerFactory->registerRoutes($app);
 
 		return $app;

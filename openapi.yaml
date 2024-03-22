@@ -127,6 +127,7 @@ components:
       properties:
         userId:
           $ref: '#/components/schemas/userId'
+          readonly: true
         email:
           type: string
           format: email
@@ -135,6 +136,9 @@ components:
           type: string
           format: username
           description: The user's username.
+      required:
+        - email
+        - username
     userId:
       type: string
       format: uuid

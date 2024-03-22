@@ -9,7 +9,9 @@ use App\Repository\UserRepository;
 use Aura\Sql\ExtendedPdo;
 use DI\Container;
 use DI\ContainerBuilder;
+use Monolog\Logger;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 use function DI\autowire;
 use function DI\create;
@@ -25,6 +27,8 @@ class Services {
 
 	public function register(): Container {
 		$this->containerBuilder->addDefinitions([
+			LoggerInterface::class => create(Logger::class)
+				->constructor(value('App')),
 			PDO::class => create(ExtendedPdo::class)
 				->constructor(
 					value(

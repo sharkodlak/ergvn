@@ -14,13 +14,11 @@ class UserController {
 	) {
 	}
 
-	/** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
 	public function createUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
-		$data = [
-			'email' => 'john@doe.com',
-			'id' => '00000000-0000-0000-0000-000000000000',
-			'name' => 'John Doe',
-		];
+		$body = (string) $request->getBody();
+		$data = \json_decode($body, flags: \JSON_THROW_ON_ERROR);
+		\var_dump($data); die(__FILE__ . ':' . __LINE__);
+
 		$response->getBody()->write(\json_encode($data, \JSON_THROW_ON_ERROR));
 		$response = $response->withHeader('Content-Type', 'application/json');
 		return $response->withStatus(201);

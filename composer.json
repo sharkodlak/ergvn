@@ -13,6 +13,7 @@
         "ext-json": "*",
         "aura/sql": "^5.0",
         "league/openapi-psr7-validator": "^0.22.0",
+        "monolog/monolog": "^3.5",
         "nyholm/psr7": "^1.8",
         "nyholm/psr7-server": "^1.1",
         "php-di/php-di": "^7.0",

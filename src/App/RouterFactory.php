@@ -13,8 +13,8 @@ class RouterFactory {
 		// phpcs:disable SlevomatCodingStandard.Functions.StaticClosure
 		$slimApp->group('/api/v{apiVersion}', function (RouteCollectorProxy $version): void {
 			$version->group('/user', function (RouteCollectorProxy $user): void {
-				$user->get('/{userId}', UserController::class . ':getUser');
 				$user->post('', UserController::class . ':createUser');
+				$user->get('/{userId}', UserController::class . ':getUser');
 			});
 		});
 		// phpcs:enable

@@ -26,21 +26,6 @@ class ErrorHandler {
 	}
 
 	/**
-	 * @param DataArray $data
-	 */
-	private function logError(bool $logErrors, bool $logErrorDetails, array $data, Throwable $exception): void {
-		if (!$logErrors) {
-			return;
-		}
-
-		if ($logErrorDetails) {
-			$data['exception'] = $exception;
-		}
-
-		$this->logger->error($data['error'], $data);
-	}
-
-	/**
 	 * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 	 */
 	public function __invoke(
@@ -69,5 +54,20 @@ class ErrorHandler {
 		$response->getBody()->write($json);
 
 		return $response;
+	}
+
+	/**
+	 * @param DataArray $data
+	 */
+	private function logError(bool $logErrors, bool $logErrorDetails, array $data, Throwable $exception): void {
+		if (!$logErrors) {
+			return;
+		}
+
+		if ($logErrorDetails) {
+			$data['exception'] = $exception;
+		}
+
+		$this->logger->error($data['error'], $data);
 	}
 }

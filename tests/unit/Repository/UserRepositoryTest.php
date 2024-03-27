@@ -6,6 +6,9 @@ namespace Tests\Unit\Repository;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\ValueObject\Email;
+use App\ValueObject\UserId;
+use App\ValueObject\UserName;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -14,14 +17,16 @@ class UserRepositoryTest extends TestCase {
 	private UserRepository $userRepository;
 
 	public function testFindByUserId(): void {
-		$userId = '00000000-0000-0000-0000-000000000000';
-		$user = new User($userId);
+		$userId = new UserId('00000000-0000-0000-0000-000000000000');
+		$username = new UserName('test');
+		$email = new Email('test@test.example');
+		$user = new User($userId, $username, $email);
 		$this->userRepository
 			->expects($this->once())
 			->method('findByUserId')
 			->willReturn($user);
 		
-		$this->assertEquals($user, $this->userRepository->findByUserId($userId));
+		$this->assertEquals($user, $this->userRepository->findByUserId($userId->getValue()));
 	}
 
 	protected function setUp(): void {

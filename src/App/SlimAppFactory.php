@@ -33,6 +33,7 @@ class SlimAppFactory {
 
 		$errorMiddleware = $app->addErrorMiddleware(false, true, true);
 		$errorHandler = $this->container->get(ErrorHandler::class);
+		\assert($errorHandler instanceof ErrorHandler);
 		$errorMiddleware->setDefaultErrorHandler($errorHandler);
 		$this->routerFactory->registerRoutes($app);
 

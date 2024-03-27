@@ -20,6 +20,9 @@ fix:
 in:
 	@$(MAKE) --silent exec $(SERVICE) $(ARGS)
 
+migrate:
+	docker-compose exec db db/migrations/migrate.sh
+
 restart:
 	docker-compose restart
 

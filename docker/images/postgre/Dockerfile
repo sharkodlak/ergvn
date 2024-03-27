@@ -6,6 +6,7 @@ RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
 		gettext \
 		locales \
+		postgresql-contrib \
 		&& \
 	apt-get -qy autoremove && \
 	apt-get -y clean && \

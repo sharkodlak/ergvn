@@ -33,7 +33,8 @@ if psql -U "${DB_USER}" -lqt | cut -d \| -f 1 | grep -qw "${DB_NAME}"; then
 else
 	echo "Database »${DB_NAME}« does not exist."
 	echo "Creating database »${DB_NAME}«..."
-	sql=$(cat "../init.sql")
+	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+	sql=$(cat "$SCRIPT_DIR/../init.sql")
 	echo "$(echo "$sql" | envsubst)" | psql -U ${POSTGRES_USER}
 	echo "Database »${DB_NAME}« created."
 fi

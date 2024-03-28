@@ -7,8 +7,9 @@ namespace App\Entity;
 use App\ValueObject\Email;
 use App\ValueObject\UserId;
 use App\ValueObject\UserName;
+use JsonSerializable;
 
-class User {
+class User implements JsonSerializable {
 	public function __construct(
 		private readonly UserId $id,
 		private readonly UserName $username,
@@ -26,5 +27,13 @@ class User {
 
 	public function getUsername(): UserName {
 		return $this->username;
+	}
+
+	public function jsonSerialize(): mixed {
+		return [
+			'id' => $this->id->getValue(),
+			'username' => $this->username->getValue(),
+			'email' => $this->email->getValue(),
+		];
 	}
 }

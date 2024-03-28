@@ -6,5 +6,7 @@ CREATE TABLE users (
 	email VARCHAR(255) NOT NULL,
 	created_at TIMESTAMP NOT NULL
 		DEFAULT CURRENT_TIMESTAMP,
-	updated_at TIMESTAMP NOT NULL
+	updated_at TIMESTAMP NOT NULL,
+	CONSTRAINT users_username_unique UNIQUE (username),
+	CONSTRAINT users_email_unique UNIQUE (email)
 );

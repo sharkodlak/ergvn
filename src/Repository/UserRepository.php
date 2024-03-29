@@ -12,5 +12,7 @@ interface UserRepository {
 
 	public function findUserById(string $id): ?User;
 
+	public function findUserByEmail(string $email): ?User;
+
 	public function findUserByUsername(string $username): ?User;
 }

@@ -14,6 +14,7 @@ class RouterFactory {
 		$slimApp->group('/api/v{apiVersion}', function (RouteCollectorProxy $version): void {
 			$version->group('/user', function (RouteCollectorProxy $user): void {
 				$user->post('', UserController::class . ':createUser');
+				$user->get('/check', UserController::class . ':checkUser');
 				$user->get('/{userId}', UserController::class . ':getUser');
 			});
 		});

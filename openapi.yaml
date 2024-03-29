@@ -32,7 +32,7 @@ paths:
         '400':
           $ref: '#/components/responses/InvalidRequest'
         '4XX':
-          $ref: '#/components/responses/Error'
+          $ref: '#/components/responses/ClientError'
         '5XX':
           $ref: '#/components/responses/Error'
 
@@ -55,7 +55,32 @@ paths:
         '400':
           $ref: '#/components/responses/InvalidRequest'
         '4XX':
+          $ref: '#/components/responses/ClientError'
+        '5XX':
           $ref: '#/components/responses/Error'
+
+  /api/v{apiVersion}/user/check:
+    parameters:
+      - $ref: '#/components/parameters/apiVersion'
+    get:
+      summary: Check if username or email exists.
+      operationId: checkUser
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/email'
+        - $ref: '#/components/parameters/username'
+      responses:
+        '200':
+          description: Checked property is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCheck'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
         '5XX':
           $ref: '#/components/responses/Error'
 
@@ -71,6 +96,13 @@ components:
         minimum: 1
         maximum: 2
         default: 1
+    email:
+      name: email
+      description: The user's email.
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/email'
     userId:
       name: userId
       description: The user ID.
@@ -78,8 +110,21 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/userId'
+    username:
+      name: username
+      description: The user's username.
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/username'
 
   responses:
+    ClientError:
+      description: An error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
     Error:
       description: An error occurred.
       content:
@@ -97,17 +142,25 @@ components:
     Error:
       type: object
       properties:
+        code:
+          type: integer
+          description: Associated error code.
         error:
           type: string
           description: A message describing the error.
-        errorCode:
-          type: integer
-          description: Associated error code.
         messages:
           type: array
           items:
             type: string
             description: A detailed description of the error.
+        extra:
+          type: object
+          description: Additional information about the error.
+        trace:
+          type: array
+          items:
+            type: object
+            description: A stack trace of the error.
       required:
         - error
     InvalidRequest:
@@ -129,33 +182,54 @@ components:
           $ref: '#/components/schemas/userId'
           readonly: true
         email:
-          type: string
-          format: email
-          description: The user's email.
+          $ref: '#/components/schemas/email'
         username:
-          type: string
-          format: username
-          description: The user's username.
+          $ref: '#/components/schemas/username'
       additionalProperties: false
-    UserCreateDto:
+    UserCheck:
       type: object
       properties:
         email:
           type: string
-          format: email
-          description: The user's email.
+          description: Email is available.
+          enum:
+            - available
+            - used
         username:
           type: string
-          format: username
-          description: The user's username.
+          description: Username is available.
+          enum:
+            - available
+            - used
+      additionalProperties: false
+      anyOf:
+        - required:
+          - email
+        - required:
+          - username
+    UserCreateDto:
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/email'
+        username:
+          $ref: '#/components/schemas/username'
       required:
         - email
         - username
       additionalProperties: false
+    email:
+      type: string
+      format: email
+      description: The user's email.
     userId:
       type: string
       format: uuid
       description: Unique identifier of the user.
+    username:
+      type: string
+      format: username
+      description: The user's username.
 
   securitySchemes:
     Bearer:

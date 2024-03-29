@@ -13,9 +13,11 @@ use Slim\Exception\HttpException;
 use Throwable;
 
 /**
+ * @phpcsSuppress SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
  * @phpstan-type DataArray = array{
  *   code: int,
  *   error: string,
+ *   extra?: mixed,
  *   trace?: array,
  *   exception?: Throwable
  * }
@@ -36,8 +38,7 @@ class ErrorHandler {
 		bool $logErrors,
 		bool $logErrorDetails
 	): ResponseInterface {
-		$statusCode = $exception instanceof HttpException
-			|| $exception instanceof UserRuntimeException
+		$statusCode = $exception instanceof HttpException || $exception instanceof UserRuntimeException
 			? $exception->getCode()
 			: 500;
 		$errorMessage = $exception->getMessage() !== '' ? $exception->getMessage() : 'Internal Server Error';
@@ -47,6 +48,7 @@ class ErrorHandler {
 		];
 
 		if ($displayErrorDetails) {
+			$data = $this->extra($data, $exception);
 			$data['trace'] = $exception->getTrace();
 		}
 
@@ -58,6 +60,22 @@ class ErrorHandler {
 		$response->getBody()->write($json);
 
 		return $response;
+	}
+
+	/**
+	 * @param DataArray $data
+	 * @return DataArray
+	 */
+	private function extra(array $data, Throwable $exception): array {
+		if ($exception instanceof UserRuntimeException) {
+			$extra = $exception->getExtra();
+
+			if (isset($extra)) {
+				$data['extra'] = $extra;
+			}
+		}
+
+		return $data;
 	}
 
 	/**

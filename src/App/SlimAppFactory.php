@@ -31,7 +31,7 @@ class SlimAppFactory {
 			$app->add($responseValidator);
 		}
 
-		$errorMiddleware = $app->addErrorMiddleware(false, true, true);
+		$errorMiddleware = $app->addErrorMiddleware($this->config['DISPLAY_ERROR_DETAILS'] === 'true', true, true);
 		$errorHandler = $this->container->get(ErrorHandler::class);
 		\assert($errorHandler instanceof ErrorHandler);
 		$errorMiddleware->setDefaultErrorHandler($errorHandler);

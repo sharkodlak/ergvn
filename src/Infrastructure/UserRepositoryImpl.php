@@ -43,6 +43,12 @@ class UserRepositoryImpl implements UserRepository {
 		]);
 	}
 
+	public function findUserByEmail(string $email): ?User {
+		$stmt = $this->pdo->prepare('SELECT user_id, username, email FROM users WHERE email = :email');
+		$stmt->execute(['email' => $email]);
+		return $this->fetch($stmt);
+	}
+
 	public function findUserById(string $id): ?User {
 		$stmt = $this->pdo->prepare('SELECT user_id, username, email FROM users WHERE user_id = :id');
 		$stmt->execute(['id' => $id]);

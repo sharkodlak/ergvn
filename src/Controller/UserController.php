@@ -5,16 +5,24 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Dto\CreateUserDto;
-use App\Exceptions\UserNotFound;
-use App\Repository\UserRepository;
+use App\Service\UserCrudService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
 
 class UserController {
 	public function __construct(
-		private readonly UserRepository $userRepository
+		private readonly UserCrudService $userCrudService
 	) {
+	}
+
+	public function checkUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+		$queryParams = $request->getQueryParams();
+		$data = $this->userCrudService->checkUser($queryParams['email'] ?? null, $queryParams['username'] ?? null);
+
+		$response->getBody()->write(\json_encode($data, \JSON_THROW_ON_ERROR));
+		$response = $response->withHeader('Content-Type', 'application/json');
+		return $response;
 	}
 
 	public function createUser(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
@@ -22,7 +30,7 @@ class UserController {
 		/** @var stdClass $data */
 		$data = \json_decode($body, flags: \JSON_THROW_ON_ERROR);
 		$userDto = new CreateUserDto($data->username, $data->email);
-		$this->userRepository->createUser($userDto);
+		$this->userCrudService->createUser($userDto);
 
 		$response->getBody()->write(\json_encode($userDto, \JSON_THROW_ON_ERROR));
 		$response = $response->withHeader('Content-Type', 'application/json');
@@ -39,11 +47,7 @@ class UserController {
 		array $parameters
 	): ResponseInterface {
 		$userId = $parameters['userId'];
-		$data = $this->userRepository->findUserById($userId);
-
-		if ($data === null) {
-			throw UserNotFound::create();
-		}
+		$data = $this->userCrudService->getUser($userId);
 
 		$response->getBody()->write(\json_encode($data, \JSON_THROW_ON_ERROR));
 		$response = $response->withHeader('Content-Type', 'application/json');

@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Repository;
+namespace Tests\Unit\UserModule\Repository;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
-use App\ValueObject\Email;
-use App\ValueObject\UserId;
-use App\ValueObject\UserName;
+use App\UserModule\Entity\User;
+use App\UserModule\Repository\UserRepository;
+use App\UserModule\ValueObject\Email;
+use App\UserModule\ValueObject\UserId;
+use App\UserModule\ValueObject\UserName;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

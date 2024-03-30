@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace App\Infrastructure;
+namespace App\UserModule\Infrastructure;
 
-use App\Dto\CreateUserDto;
-use App\Entity\User;
-use App\Exceptions\UserAlreadyExists;
-use App\Exceptions\UserCreateException;
-use App\Repository\UserRepository;
-use App\ValueObject\Email;
-use App\ValueObject\UserId;
-use App\ValueObject\UserName;
+use App\UserModule\Dto\CreateUserDto;
+use App\UserModule\Entity\User;
+use App\UserModule\Exceptions\UserAlreadyExists;
+use App\UserModule\Exceptions\UserCreateException;
+use App\UserModule\Repository\UserRepository;
+use App\UserModule\ValueObject\Email;
+use App\UserModule\ValueObject\UserId;
+use App\UserModule\ValueObject\UserName;
 use PDO;
 use PDOStatement;
 

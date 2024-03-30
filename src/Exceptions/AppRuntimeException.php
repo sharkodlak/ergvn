@@ -7,7 +7,7 @@ namespace App\Exceptions;
 use RuntimeException;
 
 /** phpcs:ignoreFile SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix */
-class UserRuntimeException extends RuntimeException {
+class AppRuntimeException extends RuntimeException {
 	private mixed $extra;
 
 	public function setExtra(mixed $extra): void {
@@ -15,6 +15,6 @@ class UserRuntimeException extends RuntimeException {
 	}
 
 	public function getExtra(): mixed {
-		return $this->extra;
+		return $this->extra ?? null;
 	}
 }

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\App\Api;
 
-use App\Exceptions\UserRuntimeException;
+use App\Exceptions\AppRuntimeException;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -38,7 +38,7 @@ class ErrorHandler {
 		bool $logErrors,
 		bool $logErrorDetails
 	): ResponseInterface {
-		$statusCode = $exception instanceof HttpException || $exception instanceof UserRuntimeException
+		$statusCode = $exception instanceof HttpException || $exception instanceof AppRuntimeException
 			? $exception->getCode()
 			: 500;
 		$errorMessage = $exception->getMessage() !== '' ? $exception->getMessage() : 'Internal Server Error';
@@ -67,10 +67,10 @@ class ErrorHandler {
 	 * @return DataArray
 	 */
 	private function extra(array $data, Throwable $exception): array {
-		if ($exception instanceof UserRuntimeException) {
+		if ($exception instanceof AppRuntimeException) {
 			$extra = $exception->getExtra();
 
-			if (isset($extra)) {
+			if ($extra !== null) {
 				$data['extra'] = $extra;
 			}
 		}

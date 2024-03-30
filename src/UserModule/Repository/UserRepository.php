@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace App\Repository;
+namespace App\UserModule\Repository;
 
-use App\Dto\CreateUserDto;
-use App\Entity\User;
+use App\UserModule\Dto\CreateUserDto;
+use App\UserModule\Entity\User;
 
 interface UserRepository {
 	public function createUser(CreateUserDto $newUser): void;

@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace App\Service;
+namespace App\UserModule\Service;
 
-use App\Dto\CreateUserDto;
-use App\Dto\UserCheckDto;
-use App\Entity\User;
-use App\Exceptions\UserAlreadyExists;
-use App\Exceptions\UserNotFound;
-use App\Repository\UserRepository;
+use App\UserModule\Dto\CreateUserDto;
+use App\UserModule\Dto\UserCheckDto;
+use App\UserModule\Entity\User;
+use App\UserModule\Exceptions\UserAlreadyExists;
+use App\UserModule\Exceptions\UserNotFound;
+use App\UserModule\Repository\UserRepository;
 use InvalidArgumentException;
 
 class UserCrudService {

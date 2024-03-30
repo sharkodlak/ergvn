@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Entity;
+namespace Tests\Unit\UserModule\Entity;
 
-use App\Entity\User;
-use App\ValueObject\Email;
-use App\ValueObject\UserId;
-use App\ValueObject\UserName;
+use App\UserModule\Entity\User;
+use App\UserModule\ValueObject\Email;
+use App\UserModule\ValueObject\UserId;
+use App\UserModule\ValueObject\UserName;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase {

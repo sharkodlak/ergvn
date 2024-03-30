@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace App\App;
 
-use App\Infrastructure\UserRepositoryImpl;
-use App\Repository\UserRepository;
+use App\UserModule\Infrastructure\UserRepositoryImpl;
+use App\UserModule\Repository\UserRepository;
 use Aura\Sql\ExtendedPdo;
 use DI\Container;
 use DI\ContainerBuilder;

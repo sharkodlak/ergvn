@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace App\Entity;
+namespace App\UserModule\Entity;
 
-use App\ValueObject\Email;
-use App\ValueObject\UserId;
-use App\ValueObject\UserName;
+use App\UserModule\ValueObject\Email;
+use App\UserModule\ValueObject\UserId;
+use App\UserModule\ValueObject\UserName;
 use JsonSerializable;
 
 class User implements JsonSerializable {

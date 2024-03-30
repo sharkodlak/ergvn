@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace App\ValueObject;
+namespace App\UserModule\ValueObject;
 
-class UserName {
+class Email {
 	public function __construct(
 		private readonly string $value
 	) {

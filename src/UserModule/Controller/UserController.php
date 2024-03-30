@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace App\Controller;
+namespace App\UserModule\Controller;
 
-use App\Dto\CreateUserDto;
-use App\Service\UserCrudService;
+use App\UserModule\Dto\CreateUserDto;
+use App\UserModule\Service\UserCrudService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;

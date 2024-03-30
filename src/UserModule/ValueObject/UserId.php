@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\ValueObject;
+namespace App\UserModule\ValueObject;
 
 class UserId {
 	public function __construct(

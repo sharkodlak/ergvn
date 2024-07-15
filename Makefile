@@ -12,30 +12,30 @@ endif
 down: stop
 
 exec:
-	docker-compose exec $(SERVICE) bash
+	docker compose exec $(SERVICE) bash
 
 fix:
-	docker-compose exec php composer cmd:fix
+	docker compose exec php composer cmd:fix
 
 in:
 	@$(MAKE) --silent exec $(SERVICE) $(ARGS)
 
 migrate:
-	docker-compose exec db db/migrations/migrate.sh
+	docker compose exec db db/migrations/migrate.sh
 
 restart:
-	docker-compose restart
+	docker compose restart
 
 start:
-	docker-compose up --detach
+	docker compose up --detach
 
 stop:
-	docker-compose down
+	docker compose down
 
 test: qa
 
 qa:
-	docker-compose exec php composer cmd:qa
+	docker compose exec php composer cmd:qa
 
 up: start
 

@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
-use App\App\SlimAppFactory;
-use App\Bootstrap;
+use Nette\Bootstrap\Configurator;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$container = Bootstrap::boot();
-$appFactory = $container->get(SlimAppFactory::class);
-$app = $appFactory->create();
+try {
+    $configurator = new Configurator();
+    $configurator->setTempDirectory(__DIR__ . '/../temp');
+    $configurator->enableTracy(__DIR__ . '/../var/log');
+    $configurator->addConfig(__DIR__ . '/../config/common.neon');
+    $configurator->setDebugMode(true);
 
-$app->run();
+    $container = $configurator->createContainer();
+    $container->getService('application')->run();
+} catch (Throwable $e) {
+    var_dump($e);
+    exit(1);
+}

@@ -1,0 +1,9 @@
+application:
+    mapping: App\UI\*\**Presenter
+
+parameters:
+    appDir: %appDir%
+    wwwDir: %wwwDir%
+
+services:
+    - App\RouterFactory::createRouter

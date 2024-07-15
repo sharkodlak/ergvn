@@ -18,14 +18,9 @@ use App\BookModule\ValueObject\Title;
 use PDO;
 use PDOStatement;
 
-/**
- * @phpstan-type UserRow array{
- *   id: string,
- * }
- */
 readonly class BookRepositoryImpl implements BookRepository {
 	public function __construct(
-		private PDO $pdo,
+		private PDO $pdo
 	) {
 	}
 
@@ -44,7 +39,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 			$newBook->getGenre(),
 			$newBook->getDescription(),
 			$newBook->getPrice(),
-			$newBook->getPublishDate(),
+			$newBook->getPublishDate()
 		);
 		$stmt = $this->pdo->prepare(
 			"INSERT INTO books (book_id, author, title, genre, description, price, publish_date)\n"
@@ -70,14 +65,14 @@ readonly class BookRepositoryImpl implements BookRepository {
 	}
 
 	/**
-	 * @return Book[]
+	 * @return array<Book>
 	 */
 	public function findBooksByAuthor(Author $author): array {
 		$stmt = $this->pdo->prepare(
 			'SELECT book_id, author, title, genre, description, price, publish_date FROM books WHERE author = :author'
 		);
 		$stmt->execute(['author' => $author->getValue()]);
-		$books = $stmt->fetchAll(PDO::FETCH_FUNC, fn(...$args) => $this->getBookInstance(...$args));
+		$books = $stmt->fetchAll(PDO::FETCH_FUNC, fn (...$args) => $this->getBookInstance(...$args));
 
 		return $books;
 	}
@@ -97,7 +92,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 			$row['genre'],
 			$row['description'],
 			$row['price'],
-			$row['publish_date'],
+			$row['publish_date']
 		);
 	}
 
@@ -118,14 +113,6 @@ readonly class BookRepositoryImpl implements BookRepository {
 		$priceVO = new Price($price);
 		$publishDateVO = new PublishDate($publishDate);
 
-		return new Book(
-			$bookIdVO,
-			$authorVO,
-			$titleVO,
-			$genreVO,
-			$descriptionVO,
-			$priceVO,
-			$publishDateVO,
-		);
+		return new Book($bookIdVO, $authorVO, $titleVO, $genreVO, $descriptionVO, $priceVO, $publishDateVO);
 	}
 }

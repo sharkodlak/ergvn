@@ -14,7 +14,7 @@ readonly class Price {
 	}
 
 	public function __toString(): string {
-		return sprintf(self::FORMAT, $this->value);
+		return \sprintf(self::FORMAT, $this->value);
 	}
 
 	public function getValue(): float {

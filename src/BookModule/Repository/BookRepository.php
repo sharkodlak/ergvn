@@ -18,7 +18,7 @@ interface BookRepository {
 	public function findBookByTitle(Title $title): ?Book;
 
 	/**
-	 * @return Book[]
+	 * @return array<Book>
 	 */
 	public function findBooksByAuthor(Author $author): array;
 }

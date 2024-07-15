@@ -10,12 +10,12 @@ use DateTimeInterface;
 readonly class PublishDate {
 	const FORMAT = 'Y-m-d';
 
-    private DateTimeImmutable $value;
+	private DateTimeImmutable $value;
 
 	public function __construct(
 		DateTimeInterface|string $value
 	) {
-		if (is_string($value)) {
+		if (\is_string($value)) {
 			$this->value = DateTimeImmutable::createFromFormat(self::FORMAT, $value);
 			return;
 		}

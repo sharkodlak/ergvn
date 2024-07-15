@@ -14,7 +14,7 @@ readonly class CreateBookDto implements JsonSerializable {
 		private string $genre,
 		private string $description,
 		private float $price,
-		private string $publishDate,
+		private string $publishDate
 	) {
 	}
 

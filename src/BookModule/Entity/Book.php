@@ -21,7 +21,7 @@ readonly class Book implements JsonSerializable {
 		private Genre $genre,
 		private Description $description,
 		private Price $price,
-		private PublishDate $publishDate,
+		private PublishDate $publishDate
 	) {
 	}
 

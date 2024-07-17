@@ -16,7 +16,7 @@ readonly class PublishDate {
 		DateTimeInterface|string $value
 	) {
 		if (\is_string($value)) {
-			$this->value = DateTimeImmutable::createFromFormat(self::FORMAT, $value);
+			$this->value = new DateTimeImmutable($value);
 			return;
 		}
 

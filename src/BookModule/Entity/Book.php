@@ -64,6 +64,7 @@ readonly class Book implements JsonSerializable {
 			'genre' => $this->genre->getValue(),
 			'price' => $this->price->getValue(),
 			'publish_date' => (string) $this->publishDate,
+			'description' => $this->description->getValue(),
 		];
 	}
 }

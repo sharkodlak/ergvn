@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types = 1);
+
+use App\Bootstrap;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$configurator = Bootstrap::boot();
+$container = $configurator->createContainer();
+$consoleApplication = $container->getByType(Contributte\Console\Application::class);
+$exitCode = $consoleApplication->run();
+
+exit($exitCode);

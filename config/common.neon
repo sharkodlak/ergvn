@@ -3,6 +3,16 @@ application:
         *: App\UI\*\**Presenter
         API: App\UI\API\*Presenter
 
+console:
+    name: Retia
+    version: 1.0
+    catchExceptions: true
+    autoExit: true
+    url: https://retia.example
+
+extensions:
+    console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+
 parameters:
     appDir: %appDir%
     wwwDir: %wwwDir%
@@ -14,6 +24,7 @@ parameters:
 
 services:
     - App\RouterFactory::createRouter
+    - App\BookModule\Command\ImportCommand
     - App\BookModule\Infrastructure\BookRepositoryImpl
     - App\BookModule\Service\BookCrudService
 

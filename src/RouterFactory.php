@@ -15,8 +15,7 @@ class RouterFactory {
 				'presenter' => 'Books',
 				'action' => 'getBooks',
 				'method' => 'GET',
-			])
-		;
+			]);
 
 		$router->addRoute('<presenter>[/<action>[/<id>]]', 'Home:default');
 		return $router;

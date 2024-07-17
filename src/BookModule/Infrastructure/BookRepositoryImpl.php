@@ -140,7 +140,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 		string $title,
 		string $genre,
 		string $description,
-		float $price,
+		string|float $price,
 		string $publishDate
 	): Book {
 		$bookIdVO = new BookId($bookId);
@@ -148,7 +148,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 		$titleVO = new Title($title);
 		$genreVO = new Genre($genre);
 		$descriptionVO = new Description($description);
-		$priceVO = new Price($price);
+		$priceVO = new Price((float) $price);
 		$publishDateVO = new PublishDate($publishDate);
 
 		return new Book($bookIdVO, $authorVO, $titleVO, $genreVO, $descriptionVO, $priceVO, $publishDateVO);

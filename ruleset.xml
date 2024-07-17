@@ -133,6 +133,11 @@
 		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator"/>
 		<exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion"/>
 	</rule>
+	<rule ref="SlevomatCodingStandard.Attributes.AttributesOrder">
+		<properties>
+			<property name="orderAlphabetically" type="bool" value="true"/>
+		</properties>
+	</rule>
 	<rule ref="SlevomatCodingStandard.Classes.ClassStructure">
 		<properties>
 			<property name="groups" type="array">

@@ -7,6 +7,7 @@
         "php": "^8.3",
         "ext-json": "*",
         "aura/sql": "^5.0",
+        "contributte/console": "^0.10.1",
         "monolog/monolog": "^3.5",
         "nette/nette": "^3.2",
         "psr/log": "^3.0",

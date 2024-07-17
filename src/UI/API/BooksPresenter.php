@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\UI\Home;
+namespace App\UI\API;
 
 use App\BookModule\Dto\CreateBookDto;
 use App\BookModule\Dto\UpdateBookDto;
@@ -11,10 +11,11 @@ use App\BookModule\ValueObject\BookId;
 use Nette\Application\UI\Presenter;
 use Nette\Http\IResponse;
 
-class BookPresenter extends Presenter {
+class BooksPresenter extends Presenter {
 	public function __construct(
 		private BookCrudService $bookCrudService
 	) {
+		parent::__construct();
 	}
 
 	public function startup(): void {
@@ -29,7 +30,7 @@ class BookPresenter extends Presenter {
 			'createBook' => 'POST',
 			'readBook' => 'GET',
 			'updateBook' => 'PUT',
-			'deleteBook' => 'DELETE',,
+			'deleteBook' => 'DELETE',
 		];
 
 		if (!isset($allowedMethods[$action]) || $method === $allowedMethods[$action]) {

@@ -1,9 +1,28 @@
 application:
-    mapping: App\UI\*\**Presenter
+    mapping:
+        *: App\UI\*\**Presenter
+        API: App\UI\API\*Presenter
 
 parameters:
     appDir: %appDir%
     wwwDir: %wwwDir%
+    db:
+        host: %env.DB_HOST%
+        name: %env.DB_NAME%
+        user: %env.DB_USER%
+        pass: %env.DB_PASS%
 
 services:
     - App\RouterFactory::createRouter
+    - App\BookModule\Infrastructure\BookRepositoryImpl
+    - App\BookModule\Service\BookCrudService
+
+    pdo:
+        class: Aura\Sql\ExtendedPdo
+        arguments:
+            dsn: "pgsql:host=%db.host%;dbname=%db.name%"
+            username: %db.user%
+            password: %db.pass%
+            options:
+                - PDO::ATTR_ERRMODE: PDO::ERRMODE_EXCEPTION
+                - PDO::ATTR_DEFAULT_FETCH_MODE: PDO::FETCH_ASSOC

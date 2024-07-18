@@ -8,7 +8,7 @@ use App\BookModule\Dto\CreateBookDto;
 use App\BookModule\Dto\UpdateBookDto;
 use App\BookModule\Entity\Book;
 use App\BookModule\Exceptions\BookAlreadyExists;
-use App\BookModule\Exceptions\BookNotFound;
+use App\BookModule\Exceptions\BookCreateException;
 use App\BookModule\Exceptions\BookRuntimeException;
 use App\BookModule\Repository\BookRepository;
 use App\BookModule\ValueObject\Author;
@@ -45,20 +45,16 @@ readonly class BookRepositoryImpl implements BookRepository {
 			throw BookAlreadyExists::create('Book already exists');
 		}
 
-		$book = $this->getBookInstance(
-			$newBookDto->getId(),
-			$newBookDto->getAuthor(),
-			$newBookDto->getTitle(),
-			$newBookDto->getGenre(),
-			$newBookDto->getDescription(),
-			$newBookDto->getPrice(),
-			$newBookDto->getPublishDate()
-		);
+		$book = $this->getBookInstanceFromDto($newBookDto);
 		$stmt = $this->pdo->prepare(
 			"INSERT INTO books (book_id, author, title, genre, description, price, publish_date)\n"
 			. 'VALUES (:id, :author, :title, :genre, :description, :price, :publish_date)'
 		);
 		$stmt->execute($book->toArray());
+
+		if ($stmt->rowCount() === 0) {
+			throw BookCreateException::create('Could not create book');
+		}
 
 		return $book;
 	}
@@ -106,10 +102,6 @@ readonly class BookRepositoryImpl implements BookRepository {
 		$stmt = $this->pdo->prepare(self::UPDATE);
 		$stmt->execute($data);
 
-		if ($stmt->rowCount() === 0) {
-			throw BookNotFound::create('Book not found');
-		}
-
 		return $this->getBookInstance(
 			$id->getValue(),
 			$updateBookDto->getAuthor(),
@@ -137,6 +129,18 @@ readonly class BookRepositoryImpl implements BookRepository {
 			$row['description'],
 			$row['price'],
 			$row['publish_date']
+		);
+	}
+
+	private function getBookInstanceFromDto(CreateBookDto $newBookDto): Book {
+		return $this->getBookInstance(
+			$newBookDto->getId(),
+			$newBookDto->getAuthor(),
+			$newBookDto->getTitle(),
+			$newBookDto->getGenre(),
+			$newBookDto->getDescription(),
+			$newBookDto->getPrice(),
+			$newBookDto->getPublishDate()
 		);
 	}
 

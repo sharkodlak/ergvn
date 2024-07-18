@@ -25,6 +25,10 @@ readonly class Book implements JsonSerializable {
 	) {
 	}
 
+	public function getId(): BookId {
+		return $this->id;
+	}
+
 	public function getAuthor(): Author {
 		return $this->author;
 	}

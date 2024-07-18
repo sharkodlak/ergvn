@@ -7,14 +7,13 @@ namespace App;
 use Nette\Bootstrap\Configurator;
 use Symfony\Component\Dotenv\Dotenv;
 
-require __DIR__ . '/../vendor/autoload.php';
-
 class Bootstrap {
 	public static function boot(): Configurator {
 		$dotenv = new Dotenv();
 		$dotenv->load(__DIR__ . '/../.env');
 
 		$configurator = new Configurator();
+		// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
 		$configurator->addDynamicParameters(['env' => $_ENV]);
 
 		$configurator->setTempDirectory(__DIR__ . '/../temp');

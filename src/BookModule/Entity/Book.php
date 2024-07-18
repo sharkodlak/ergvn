@@ -54,7 +54,7 @@ readonly class Book implements JsonSerializable {
 	}
 
 	/**
-	 * @return array<string, mixed>
+	 * @return array<string, float|string>
 	 */
 	public function toArray(): array {
 		return [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8ca5750af7e8d62a67cfe9501829d19",
+    "content-hash": "7d2a8f81632cc6690d522b2df1edcf5b",
     "packages": [
         {
             "name": "aura/sql",

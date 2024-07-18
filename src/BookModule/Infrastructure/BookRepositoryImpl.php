@@ -9,6 +9,7 @@ use App\BookModule\Dto\UpdateBookDto;
 use App\BookModule\Entity\Book;
 use App\BookModule\Exceptions\BookAlreadyExists;
 use App\BookModule\Exceptions\BookNotFound;
+use App\BookModule\Exceptions\BookRuntimeException;
 use App\BookModule\Repository\BookRepository;
 use App\BookModule\ValueObject\Author;
 use App\BookModule\ValueObject\BookId;
@@ -22,6 +23,14 @@ use PDOStatement;
 
 readonly class BookRepositoryImpl implements BookRepository {
 	private const SELECT_FROM = 'SELECT book_id, author, title, genre, description, price, publish_date FROM books';
+	private const UPDATE = 'UPDATE books
+		SET author = :author,
+			title = :title,
+			genre = :genre,
+			description = :description,
+			price = :price,
+			publish_date = :publish_date
+		WHERE book_id = :id';
 
 	public function __construct(
 		private PDO $pdo
@@ -87,18 +96,21 @@ readonly class BookRepositoryImpl implements BookRepository {
 	 */
 	public function getAll(): array {
 		$stmt = $this->pdo->query(self::SELECT_FROM);
+
+		if ($stmt === false) {
+			throw new BookRuntimeException('Failed to fetch books');
+		}
+
 		$books = $stmt->fetchAll(PDO::FETCH_FUNC, fn (...$args) => $this->getBookInstance(...$args));
 
 		return $books;
 	}
 
 	public function update(BookId $id, UpdateBookDto $updateBookDto): Book {
-		$stmt = $this->pdo->prepare(
-			"UPDATE books\n"
-			. "SET author = :author, title = :title, genre = :genre, description = :description, price = :price, publish_date = :publish_date\n"
-			. 'WHERE book_id = :id'
-		);
-		$stmt->execute($updateBookDto->toArray());
+		$data = $updateBookDto->toArray();
+		$data['id'] = $id->getValue();
+		$stmt = $this->pdo->prepare(self::UPDATE);
+		$stmt->execute($data);
 
 		if ($stmt->rowCount() === 0) {
 			throw BookNotFound::create('Book not found');
@@ -148,7 +160,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 		$titleVO = new Title($title);
 		$genreVO = new Genre($genre);
 		$descriptionVO = new Description($description);
-		$priceVO = new Price((float) $price);
+		$priceVO = new Price((float) $price); // phpcs:ignore Generic.Formatting.SpaceBeforeCast.NoSpace
 		$publishDateVO = new PublishDate($publishDate);
 
 		return new Book($bookIdVO, $authorVO, $titleVO, $genreVO, $descriptionVO, $priceVO, $publishDateVO);

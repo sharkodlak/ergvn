@@ -8,9 +8,11 @@
         "ext-json": "*",
         "aura/sql": "^5.0",
         "contributte/console": "^0.10.1",
-        "monolog/monolog": "^3.5",
+        "nette/application": "^3.2",
+        "nette/bootstrap": "^3.2",
+        "nette/http": "^3.3",
         "nette/nette": "^3.2",
-        "psr/log": "^3.0",
+        "symfony/console": "^7.1",
         "symfony/dotenv": "^7.0"
     },
     "require-dev": {

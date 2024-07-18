@@ -7,5 +7,3 @@ parameters:
     level: max
     paths:
         - src
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false

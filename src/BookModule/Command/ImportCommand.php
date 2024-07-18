@@ -6,6 +6,7 @@ namespace App\BookModule\Command;
 
 use App\BookModule\Dto\CreateBookDto;
 use App\BookModule\Service\BookCrudService;
+use SimpleXMLElement;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,6 +28,7 @@ class ImportCommand extends Command {
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
+		/** @var string|null $file */
 		$file = $input->getArgument('file');
 
 		if ($file === null) {
@@ -42,7 +44,13 @@ class ImportCommand extends Command {
 		}
 
 		$output->writeln('Importing books from the XML file');
+		$this->importBooks($xml);
+		$output->writeln('Books imported successfully');
 
+		return Command::SUCCESS;
+	}
+
+	private function importBooks(SimpleXMLElement $xml): void {
 		foreach ($xml->book as $book) {
 			$newBookDto = new CreateBookDto(
 				(string) $book->attributes()->id,
@@ -51,13 +59,10 @@ class ImportCommand extends Command {
 				(string) $book->genre,
 				(string) $book->description,
 				(float) $book->price,
+				// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 				(string) $book->publish_date
 			);
 			$this->bookCrudService->createBook($newBookDto);
 		}
-
-		$output->writeln('Books imported successfully');
-
-		return Command::SUCCESS;
 	}
 }

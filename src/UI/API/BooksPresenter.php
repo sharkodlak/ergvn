@@ -8,6 +8,7 @@ use App\BookModule\Dto\CreateBookDto;
 use App\BookModule\Dto\UpdateBookDto;
 use App\BookModule\Service\BookCrudService;
 use App\BookModule\ValueObject\BookId;
+use Nette\Application\Responses\TextResponse;
 use Nette\Application\UI\Presenter;
 use Nette\Http\IResponse;
 
@@ -24,7 +25,7 @@ class BooksPresenter extends Presenter {
 		$method = $this->getHttpRequest()->getMethod();
 		$action = $this->getAction();
 
-		// Map methods to actions
+		// Map methods to actions.
 		$allowedMethods = [
 			'getBooks' => 'GET',
 			'createBook' => 'POST',
@@ -40,51 +41,80 @@ class BooksPresenter extends Presenter {
 		$this->error('Method Not Allowed', IResponse::S405_MethodNotAllowed);
 	}
 
+	public function actionBooks(): void {
+		$httpMethod = $this->getHttpRequest()->getMethod();
+
+		match ($httpMethod) {
+			'GET' => $this->actionGetBooks(),
+			'POST' => $this->actionCreateBook(),
+			default => $this->error('Method Not Allowed', IResponse::S405_MethodNotAllowed),
+		};
+	}
+
 	public function actionGetBooks(): void {
 		$books = $this->bookCrudService->getBooks();
 		$this->sendJson($books);
 	}
 
+	public function actionBook(string $bookId): void {
+		$httpMethod = $this->getHttpRequest()->getMethod();
+
+		match ($httpMethod) {
+			'GET' => $this->actionReadBook($bookId),
+			'PUT' => $this->actionUpdateBook($bookId),
+			'DELETE' => $this->actionDeleteBook($bookId),
+			default => $this->error('Method Not Allowed', IResponse::S405_MethodNotAllowed),
+		};
+	}
+
 	public function actionCreateBook(): void {
-		$data = \json_decode($this->getHttpRequest()->getRawBody(), true, flags: \JSON_THROW_ON_ERROR);
+		$body = $this->getHttpRequest()->getRawBody();
+		\assert($body !== null);
+		/** @var array<string, float|string> $data */
+		$data = \json_decode($body, true, flags: \JSON_THROW_ON_ERROR);
 		$newBookDto = new CreateBookDto(
-			$data['id'],
-			$data['author'],
-			$data['title'],
-			$data['genre'],
-			$data['description'],
-			$data['price'],
-			$data['publishDate']
+			(string) $data['id'],
+			(string) $data['author'],
+			(string) $data['title'],
+			(string) $data['genre'],
+			(string) $data['description'],
+			(float) $data['price'],
+			(string) $data['publish_date']
 		);
 		$book = $this->bookCrudService->createBook($newBookDto);
 		$this->getHttpResponse()->setCode(IResponse::S201_Created);
 		$this->sendJson($book);
 	}
 
-	public function actionReadBook(string $id): void {
-		$bookId = new BookId($id);
+	public function actionReadBook(string $bookId): void {
+		$bookId = new BookId($bookId);
 		$book = $this->bookCrudService->getBook($bookId);
 		$this->sendJson($book);
 	}
 
-	public function actionUpdateBook(string $id): void {
-		$bookId = new BookId($id);
-		$data = \json_decode($this->getHttpRequest()->getRawBody(), true, flags: \JSON_THROW_ON_ERROR);
+	public function actionUpdateBook(string $bookId): void {
+		$bookId = new BookId($bookId);
+		$body = $this->getHttpRequest()->getRawBody();
+		\assert($body !== null);
+		/** @var array<string, float|string> $data */
+		$data = \json_decode($body, true, flags: \JSON_THROW_ON_ERROR);
 		$updateBookDto = new UpdateBookDto(
-			$data['author'],
-			$data['title'],
-			$data['genre'],
-			$data['description'],
-			$data['price'],
-			$data['publishDate']
+			(string) $data['author'],
+			(string) $data['title'],
+			(string) $data['genre'],
+			(string) $data['description'],
+			(float) $data['price'],
+			(string) $data['publish_date']
 		);
 		$book = $this->bookCrudService->updateBook($bookId, $updateBookDto);
 		$this->sendJson($book);
 	}
 
-	public function actionDeleteBook(string $id): void {
-		$bookId = new BookId($id);
+	public function actionDeleteBook(string $bookId): void {
+		$bookId = new BookId($bookId);
 		$this->bookCrudService->deleteBook($bookId);
 		$this->getHttpResponse()->setCode(IResponse::S204_NoContent);
+		$response = new TextResponse('');
+		$this->sendResponse($response);
 	}
 }

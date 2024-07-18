@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 
 readonly class PublishDate {
-	const FORMAT = 'Y-m-d';
+	private const FORMAT = 'Y-m-d';
 
 	private DateTimeImmutable $value;
 

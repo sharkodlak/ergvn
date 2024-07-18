@@ -39,7 +39,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 
 	public function create(CreateBookDto $newBookDto): Book {
 		$bookId = new BookId($newBookDto->getId());
-		$book = $this->findBookById($bookId);
+		$book = $this->find($bookId);
 
 		if ($book !== null) {
 			throw BookAlreadyExists::create('Book already exists');
@@ -68,22 +68,16 @@ readonly class BookRepositoryImpl implements BookRepository {
 		$stmt->execute(['id' => $id->getValue()]);
 	}
 
-	public function findBookById(BookId $id): ?Book {
+	public function find(BookId $id): ?Book {
 		$stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE book_id = :id');
 		$stmt->execute(['id' => $id->getValue()]);
-		return $this->fetch($stmt);
-	}
-
-	public function findBookByTitle(Title $title): ?Book {
-		$stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE title = :title');
-		$stmt->execute(['title' => $title->getValue()]);
 		return $this->fetch($stmt);
 	}
 
 	/**
 	 * @return array<Book>
 	 */
-	public function findBooksByAuthor(Author $author): array {
+	public function listByAuthor(Author $author): array {
 		$stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE author = :author');
 		$stmt->execute(['author' => $author->getValue()]);
 		$books = $stmt->fetchAll(PDO::FETCH_FUNC, fn (...$args) => $this->getBookInstance(...$args));
@@ -94,7 +88,7 @@ readonly class BookRepositoryImpl implements BookRepository {
 	/**
 	 * @return array<Book>
 	 */
-	public function getAll(): array {
+	public function findAll(): array {
 		$stmt = $this->pdo->query(self::SELECT_FROM);
 
 		if ($stmt === false) {

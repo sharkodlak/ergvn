@@ -26,7 +26,7 @@ class BookCrudService {
 	}
 
 	public function getBook(BookId $id): Book {
-		$book = $this->bookRepository->findBookById($id);
+		$book = $this->bookRepository->find($id);
 
 		if ($book === null) {
 			throw BookNotFound::create();
@@ -39,7 +39,7 @@ class BookCrudService {
 	 * @return array<Book>
 	 */
 	public function getBooks(): array {
-		return $this->bookRepository->getAll();
+		return $this->bookRepository->findAll();
 	}
 
 	public function updateBook(BookId $id, UpdateBookDto $updateBookDto): Book {
